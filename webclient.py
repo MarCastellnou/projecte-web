@@ -19,8 +19,8 @@ class webClient(object):
         activities = tree.find_all("div","featured-links-item")
         act_list=[]
         for activity in activities:
-            title = activity.find("spam","flink-title")
-            link=activity.find("a")
+            title = activity.find("span","flink-title")
+            link = activity.find("a")
             act_list.append((title.text,link["href"]))
             return act_list
 
@@ -30,6 +30,7 @@ class webClient(object):
         #search activity in a web page
         data = self.search_activities(page)
         #print the activities
+        print(data)
 
 
 
