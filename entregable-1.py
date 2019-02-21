@@ -15,13 +15,12 @@ class Pagina(object):
 
     def search_text(self,page):
         tree = bs4.BeautifulSoup(page,"lxml")
-        text = tree.find_all("div","category_new_list")
+        text = tree.find_all("div","priceitem")
         act_list=[]
         for activity in text:
-            title = activity.find("span","price wh_cn")
-            link = activity.find("")
-            act_list.append((title.text,link[""]))
-            return title
+            title = activity.find("span","price")
+            act_list.append((title.text))
+            return act_list
 
     def run(self):
         #descargar pagina
