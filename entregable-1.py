@@ -8,26 +8,25 @@ class Pagina(object):
 
     def download_page(arg):
 
-        f = urlopen("https://www.banggood.com/es/Flashdeals.html")
+        f = urlopen("https://www.banggood.com/Flashdeals.html")
         page = f.read()
         f.close()
         return page
 
-    def search_text(self,page):
+    def search_offer(self,page):
         tree = bs4.BeautifulSoup(page,"lxml")
-        text = tree.find_all("div","priceitem")
-        act_list=[]
+        text = tree.find_all("div","scroll_box")
+        list=[]
         for activity in text:
-            title = activity.find("span","price")
-            act_list.append((title.text))
-            return act_list
+            offer_p = activity.find("span","price")
+            original_p = activity.find("span","price_old")
+            name = activity.find("span","title")
+            list.append((name.text, offer_p.text, original_p.text))
+            return list
 
     def run(self):
-        #descargar pagina
         page = self.download_page()
-        #buscar determinado texto en pagina
-        data = self.search_text(page)
-        #printar texto
+        data = self.search_offer(page)
         print(data)
 
 
