@@ -1,5 +1,9 @@
 from urllib.request import urlopen
 import bs4
+import xmltodict
+import pprint
+import json
+
 
 class Weather(object):
     """clase Weather"""
@@ -13,14 +17,22 @@ class Weather(object):
         f.close()
         return page
 
-    def search_text(self,page):
-        tree = bs4.BeautifulSoup(page,"lxml")
-        text = tree.find_all("city")
-        act_list=[]
-        for activity in text:
-            title = activity.find("sun")
-            act_list.append((title["set"]))
-        return act_list
+    #def search_text(self,page):
+    #    tree = bs4.BeautifulSoup(page,"lxml")
+    #    text = tree.find_all("city")
+    #    act_list=[]
+    #    for activity in text:
+    #        title = activity.find("sun")
+    #        act_list.append((title["set"]))
+    #    return act_list
+
+    def search_text(self, page):
+
+        dicc = json.loads(page)
+        pprint.pprint(dicc)
+        temp = dicc['main']['temp']
+        weather = dicc['main'][0]['description']
+        return str(temp) +' and '+ weather
 
     def run(self):
         #descargar pagina
