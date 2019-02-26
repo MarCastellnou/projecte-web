@@ -13,22 +13,16 @@ class webClient(object):
         page = f.read()
         f.close()
         return page
-
-    #def search_activities(self, page):
-    #    tree = bs4.BeautifulSoup(page,"lxml")
-    #    activities = tree.find_all("div","featured-links-item")
-    #    act_list=[]
-    #    for activity in activities:
-    #        title = activity.find("span","flink-title")
-    #        link = activity.find("a")
-    #        act_list.append((title.text,link["href"]))
-    #        return act_list
-
+        
     def search_activities(self, page):
-
-        xml = xmltodict.parse(page)
-        pprint.pprint(xml)
-        return None
+        tree = bs4.BeautifulSoup(page,"lxml")
+        activities = tree.find_all("div","featured-links-item")
+        act_list=[]
+        for activity in activities:
+            title = activity.find("span","flink-title")
+            link = activity.find("a")
+            act_list.append((title.text,link["href"]))
+            return act_list
 
 
     def run(self):
