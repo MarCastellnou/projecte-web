@@ -15,13 +15,13 @@ class Pagina(object):
 
     def search_offer(self,page):
         tree = bs4.BeautifulSoup(page,"lxml")
-        text = tree.find_all("div","priceitem")
+        text = tree.find_all("li", data_product_id='')
         list=[]
         for activity in text:
             offer_p = activity.find("span","price")
             original_p = activity.find("span","price_old")
-            #name = activity.find("span","title")
-            list.append((offer_p.text, original_p.text))
+            name = activity.find("span","title")
+            list.append((name.text,offer_p.text, original_p.text))
         return list
 
     def run(self):
